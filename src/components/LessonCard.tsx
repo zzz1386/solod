@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { AppImage } from "@/components/AppImage";
 import Link from "next/link";
 import { lessonTiming } from "@/data/course";
 import type { Lesson, Module } from "@/lib/types";
@@ -49,7 +49,7 @@ export function ModuleCard({ module }: { module: Module }) {
       className="group block overflow-hidden rounded-2xl border border-line bg-foam transition-transform hover:-translate-y-0.5"
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-stout/10">
-        <Image
+        <AppImage
           src={module.cover.src}
           alt={module.cover.alt}
           fill

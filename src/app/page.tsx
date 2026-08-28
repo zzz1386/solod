@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { AppImage } from "@/components/AppImage";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { ModuleCard } from "@/components/LessonCard";
@@ -31,7 +31,7 @@ export default function HomePage() {
       <section className="border-b border-line">
         <Container className="py-10 md:py-16">
           <div className="relative overflow-hidden rounded-[2rem] bg-stout">
-            <Image
+            <AppImage
               src="/images/home/hero.png"
               alt="Бокал пива, солод и хмель на деревянном столе"
               width={1600}
@@ -101,7 +101,7 @@ export default function HomePage() {
               className="group overflow-hidden rounded-3xl border border-line bg-foam"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
-                <Image
+                <AppImage
                   src={item.src}
                   alt={item.title}
                   fill

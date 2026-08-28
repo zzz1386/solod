@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { AppImage } from "@/components/AppImage";
 import Link from "next/link";
 import type { Lesson, LessonContent, LessonImage } from "@/lib/types";
 import { FactBlock } from "@/components/FactBlock";
@@ -7,7 +7,7 @@ import { lessonTiming } from "@/data/course";
 function Figure({ image, priority = false }: { image: LessonImage; priority?: boolean }) {
   return (
     <figure className="overflow-hidden rounded-3xl bg-stout/5">
-      <Image
+      <AppImage
         src={image.src}
         alt={image.alt}
         width={image.width}

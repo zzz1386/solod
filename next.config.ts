@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
-const isGithubPages =
-  process.env.GITHUB_PAGES === "true" || process.env.GITHUB_ACTIONS === "true";
-const basePath = isGithubPages ? "/solod" : "";
+const isDev = process.env.NODE_ENV === "development";
+const basePath = isDev ? "" : "/solod";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -12,9 +11,6 @@ const nextConfig: NextConfig = {
   },
   trailingSlash: true,
   basePath: basePath || undefined,
-  env: {
-    NEXT_PUBLIC_BASE_PATH: basePath,
-  },
 };
 
 export default nextConfig;

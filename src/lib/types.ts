@@ -1,10 +1,34 @@
 export type LessonStatus = "ready" | "outline";
 
+export type LessonImage = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
+export type LessonSection = {
+  id: string;
+  title: string;
+  paragraphs: string[];
+  list?: string[];
+  image?: LessonImage;
+};
+
+export type LessonContent = {
+  hero: LessonImage;
+  lead: string;
+  sections: LessonSection[];
+  factImage?: LessonImage;
+  glossary: { term: string; definition: string }[];
+  takeaways: string[];
+};
+
 export type Lesson = {
   number: number;
   slug: string;
   title: string;
-  duration: string;
   goal: string;
   topics: string[];
   fact: string;
@@ -17,6 +41,10 @@ export type Module = {
   week: string;
   title: string;
   summary: string;
+  cover: {
+    src: string;
+    alt: string;
+  };
   lessons: Lesson[];
 };
 

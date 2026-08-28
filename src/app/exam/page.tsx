@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
-import { examQuestions } from "@/data/course";
+import { ExamQuiz } from "@/components/ExamQuiz";
+import { examPassScore, examQuestions } from "@/data/exam";
 
 export const metadata: Metadata = {
   title: "Экзамен",
@@ -14,22 +15,11 @@ export default function ExamPage() {
       </p>
       <h1 className="mt-2 font-display text-5xl">Мини-экзамен</h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-soft">
-        Закройте конспект. Если уверенно отвечаете на пять вопросов из семи —
-        курс пройден: вы уже разбираетесь, а не «просто пьёте».
+        Один ответ из четырёх. Если верно {examPassScore} из{" "}
+        {examQuestions.length} — курс пройден: вы уже разбираетесь, а не «просто
+        пьёте».
       </p>
-      <ol className="mt-10 max-w-3xl space-y-4">
-        {examQuestions.map((question, index) => (
-          <li
-            key={question}
-            className="rounded-2xl border border-line bg-foam p-5"
-          >
-            <span className="text-xs tracking-wide text-copper uppercase">
-              Вопрос {index + 1}
-            </span>
-            <p className="mt-2 font-display text-2xl leading-snug">{question}</p>
-          </li>
-        ))}
-      </ol>
+      <ExamQuiz />
     </Container>
   );
 }

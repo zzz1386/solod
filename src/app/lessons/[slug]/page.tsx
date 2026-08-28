@@ -3,10 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { FactBlock } from "@/components/FactBlock";
+import { LessonArticle } from "@/components/LessonArticle";
+import { getLessonContent } from "@/content/lessons";
 import {
   getAdjacentLessons,
   getAllLessons,
   getLesson,
+  lessonTiming,
 } from "@/data/course";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -26,6 +29,7 @@ export default async function LessonPage({ params }: Props) {
   const lesson = getLesson(slug);
   if (!lesson) notFound();
 
+  const content = getLessonContent(slug);
   const { prev, next } = getAdjacentLessons(slug);
 
   return (
@@ -38,7 +42,8 @@ export default async function LessonPage({ params }: Props) {
           {lesson.module.title}
         </Link>
         <p className="mt-6 text-sm tracking-[0.18em] text-ink-soft uppercase">
-          Урок {lesson.number} из 24 · {lesson.duration}
+          Урок {lesson.number} из 24 · теория {lessonTiming.theory} · практика{" "}
+          {lessonTiming.practice}
         </p>
         <h1 className="mt-3 font-display text-5xl leading-tight">
           {lesson.title}
@@ -46,35 +51,41 @@ export default async function LessonPage({ params }: Props) {
         <p className="mt-5 text-lg leading-8 text-ink-soft">{lesson.goal}</p>
       </div>
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <section className="rounded-3xl border border-line bg-foam p-7">
-          <h2 className="font-display text-3xl">Темы урока</h2>
-          <ul className="mt-5 space-y-3 text-ink-soft">
-            {lesson.topics.map((topic) => (
-              <li key={topic} className="border-b border-line pb-3 last:border-0">
-                {topic}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8 rounded-2xl bg-paper p-5">
-            <p className="text-xs tracking-[0.18em] text-copper uppercase">
-              Конспект
-            </p>
-            <p className="mt-2 text-sm leading-6 text-ink-soft">
-              Каркас урока готов. Сюда позже добавится полный текст: история,
-              разбор вкуса, что искать на российской полке и словарик.
-            </p>
-          </div>
-        </section>
-
-        <div className="space-y-5">
-          <FactBlock>{lesson.fact}</FactBlock>
+      {content ? (
+        <LessonArticle lesson={lesson} content={content} />
+      ) : (
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <section className="rounded-3xl border border-line bg-foam p-7">
-            <h2 className="font-display text-3xl">Практика</h2>
-            <p className="mt-3 leading-7 text-ink-soft">{lesson.practice}</p>
+            <h2 className="font-display text-3xl">Темы урока</h2>
+            <ul className="mt-5 space-y-3 text-ink-soft">
+              {lesson.topics.map((topic) => (
+                <li key={topic} className="border-b border-line pb-3 last:border-0">
+                  {topic}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 rounded-2xl bg-paper p-5">
+              <p className="text-xs tracking-[0.18em] text-copper uppercase">
+                Конспект
+              </p>
+              <p className="mt-2 text-sm leading-6 text-ink-soft">
+                Каркас урока готов. Сюда позже добавится полный текст: история,
+                разбор вкуса, что искать на российской полке и словарик.
+              </p>
+            </div>
           </section>
+          <div className="space-y-5">
+            <FactBlock>{lesson.fact}</FactBlock>
+            <section className="rounded-3xl border border-line bg-foam p-7">
+              <p className="text-xs tracking-[0.18em] text-copper uppercase">
+                Практика · {lessonTiming.practice}
+              </p>
+              <h2 className="mt-2 font-display text-3xl">Практика</h2>
+              <p className="mt-3 leading-7 text-ink-soft">{lesson.practice}</p>
+            </section>
+          </div>
         </div>
-      </div>
+      )}
 
       <nav className="mt-12 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:justify-between">
         {prev ? (

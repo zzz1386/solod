@@ -13,6 +13,8 @@ npm run dev
 
 Откройте [http://localhost:3000](http://localhost:3000).
 
+Сайт на GitHub Pages собирается workflow из статического экспорта, а не из README. В репозитории выберите **Settings → Pages → Source → GitHub Actions**.
+
 ## Структура сайта
 
 | Маршрут | Назначение |
